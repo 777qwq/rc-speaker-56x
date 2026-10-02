@@ -1,0 +1,37 @@
+name: Build rc-speaker
+
+on:
+  push:
+  workflow_dispatch:
+
+jobs:
+  build:
+    runs-on: macos-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Install theos
+        timeout-minutes: 15
+        run: |
+          for i in 1 2 3; do
+            GITHUB_TOKEN=${{ github.token }} bash -c "$(curl -fsSL https://raw.githubusercontent.com/theos/theos/master/bin/install-theos)" && break
+            echo "retry $i"; sleep 15; rm -rf $HOME/theos
+          done
+          echo "THEOS=$HOME/theos" >> $GITHUB_ENV
+
+      - name: Fix script modes
+        run: chmod +x layout/DEBIAN/* || true
+
+      - name: Build package
+        run: |
+          make clean
+          make package FINALPACKAGE=1
+        env:
+          THEOS_PACKAGE_SCHEME: rootless
+
+      - name: Upload deb
+        uses: actions/upload-artifact@v4
+        with:
+          name: rcspeaker-deb
+          path: packages/*.deb

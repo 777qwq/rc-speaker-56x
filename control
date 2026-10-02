@@ -1,0 +1,9 @@
+Package: com.rc.speaker
+Name: 声音路由切换助手
+Version: 5.6.10
+Architecture: iphoneos-arm64
+Description: RC Speaker 5.6.2 (5.2.1 stock + proxy switch)
+Depends: mobilesubstrate, com.opa334.ccsupport
+Maintainer: RC
+Author: RC
+Section: Tweaks
