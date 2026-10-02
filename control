@@ -2,7 +2,12 @@ Package: com.rc.speaker
 Name: 声音路由切换助手
 Version: 5.6.10
 Architecture: iphoneos-arm64
-Description: RC Speaker 5.6.2 (5.2.1 stock + proxy switch)
+Description: 声音路由切换（5.2.1 游戏压制定版 + 快捷指令开关，磁贴与快捷指令状态互随）。
+ 快捷指令用法：新建快捷指令 → 添加"获取 URL 内容" → URL 填
+   http://127.0.0.1:18081/on   = 声音切到外放
+   http://127.0.0.1:18081/off  = 声音切回耳机
+   http://127.0.0.1:18081/status = 查询当前状态（返回 1=外放 0=耳机）
+ 需要有声音正在播放时切换；控制中心磁贴与本开关状态自动同步。
 Depends: mobilesubstrate, com.opa334.ccsupport
 Maintainer: RC
 Author: RC
