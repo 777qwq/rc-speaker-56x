@@ -42,19 +42,6 @@ static void SetSpeakerOn(BOOL on) {
     notify_post("com.rc.apphelper.toggle");
 }
 
-// 磁贴读双路径任一命中即 ON；残留的 jbroot 侧 "1" 会让开关死锁，启动时清一次
-static void CleanJBResidual(void) {
-    char resolved[4096];
-    if (!realpath("/var/jb", resolved)) return;
-    NSString *jb = [NSString stringWithFormat:@"%s/var/mobile/.rc_speaker_on", resolved];
-    NSString *main = @"/var/mobile/.rc_speaker_on";
-    NSString *jv = [NSString stringWithContentsOfFile:jb encoding:NSUTF8StringEncoding error:nil];
-    NSString *mv = [NSString stringWithContentsOfFile:main encoding:NSUTF8StringEncoding error:nil];
-    if (jv && ![jv isEqualToString:(mv ?: @"0")]) {
-        [[mv isEqualToString:@"1"] ? @"1" : @"0" writeToFile:jb atomically:YES encoding:NSUTF8StringEncoding error:nil];
-    }
-}
-
 static void HandleRequest(const char *buf, int cfd) {
     BOOL on;
     if (strstr(buf, "GET /on")) on = YES;
@@ -95,7 +82,6 @@ static void ServePort(void) {
 }
 
 %ctor {
-    CleanJBResidual();
     dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
         ServePort();
     });
