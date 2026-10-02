@@ -3,10 +3,10 @@ Name: 声音路由切换助手
 Version: 1.0
 Architecture: iphoneos-arm64
 Description: 声音路由切换（磁贴+快捷指令）
-http://127.0.0.1:18081/on =声音切到外放
-http://127.0.0.1:18081/off =声音切回耳机
-快捷指令 一 添加"获取 URL内容" 一 填 URL
-控制中心磁贴小喇叭与快捷指令开关状态自动同步互随
+ http://127.0.0.1:18081/on =声音切到外放
+ http://127.0.0.1:18081/off =声音切回耳机
+ 快捷指令 一 添加"获取 URL内容" 一 填 URL
+ 控制中心磁贴小喇叭与快捷指令开关状态自动同步互随
 Depends: mobilesubstrate, com.opa334.ccsupport
 Maintainer: RC
 Author: RC
